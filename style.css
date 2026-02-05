@@ -1,14 +1,16 @@
 :root {
-  color-scheme: dark;
-  --bg: #05070c;
-  --panel: #0d1320;
-  --panel-strong: #121b2b;
-  --text: #e7edf7;
-  --muted: #93a4bd;
-  --accent: #4fd1c5;
-  --accent-soft: rgba(79, 209, 197, 0.15);
-  --border: rgba(148, 167, 192, 0.2);
-  --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  color-scheme: light;
+  --bg: #f5fbff;
+  --bg-strong: #ffffff;
+  --surface: #ffffff;
+  --surface-variant: #f1f7ff;
+  --text: #0f172a;
+  --muted: #4b5563;
+  --accent: #68acf8;
+  --accent-strong: #1e60d1;
+  --border: rgba(15, 23, 42, 0.08);
+  --shadow-soft: 0 8px 20px rgba(15, 23, 42, 0.08);
+  --shadow-accent: 0 10px 20px rgba(16, 74, 168, 0.25);
   --max-width: 980px;
 }
 
@@ -18,11 +20,17 @@
 
 body {
   margin: 0;
-  font-family: "Sora", "Manrope", "IBM Plex Sans", "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, rgba(79, 209, 197, 0.08), transparent 45%),
+  font-family: "Avenir Next", "Futura", "Gill Sans", "Inter", "Segoe UI", sans-serif;
+  background: radial-gradient(
+      120% 140% at 10% 0%,
+      rgba(108, 231, 250, 0.6) 0%,
+      rgba(104, 172, 248, 0.35) 45%,
+      #ffffff 100%
+    ),
     var(--bg);
   color: var(--text);
   min-height: 100vh;
+  letter-spacing: 0.1px;
 }
 
 .container {
@@ -30,55 +38,77 @@ body {
   margin: 0 auto;
 }
 
+.hero-panel {
+  background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.78)
+    ),
+    rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+  animation: breathe 1400ms ease-in-out infinite;
+}
+
 .site-header {
-  padding: 4.5rem 0 2.5rem;
-  border-bottom: 1px solid var(--border);
+  padding: 4rem 0 2rem;
 }
 
 .site-header.compact {
-  padding: 3.5rem 0 2rem;
+  padding: 3rem 0 1.75rem;
 }
 
 .eyebrow {
   text-transform: uppercase;
   letter-spacing: 0.3em;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 600;
   color: var(--muted);
   margin: 0 0 0.75rem;
 }
 
 h1 {
-  font-size: clamp(2.2rem, 3vw + 1rem, 3.4rem);
+  font-size: clamp(1.6rem, 2vw + 1rem, 2.25rem);
   margin: 0 0 0.75rem;
-  line-height: 1.1;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 .subhead {
   margin: 0;
   color: var(--muted);
   max-width: 42rem;
+  font-size: 1rem;
 }
 
 .products {
-  padding: 3rem 0 4rem;
+  padding: 2.5rem 0 3.5rem;
 }
 
 .section-title h2 {
   margin: 0 0 0.5rem;
-  font-size: 1.6rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 .section-title p {
   margin: 0 0 2rem;
   color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .card {
-  background: linear-gradient(135deg, rgba(18, 27, 43, 0.95), rgba(10, 15, 25, 0.95));
+  background: rgba(255, 255, 255, 0.85);
   border: 1px solid var(--border);
   border-radius: 18px;
-  padding: 2rem;
-  box-shadow: var(--shadow);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(16px);
 }
 
 .card-header {
@@ -91,51 +121,58 @@ h1 {
 
 .card h3 {
   margin: 0;
-  font-size: 1.35rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: 0.1px;
 }
 
 .card p {
   margin: 0;
   color: var(--muted);
   line-height: 1.6;
+  font-size: 0.95rem;
 }
 
 .badge {
-  font-size: 0.75rem;
-  padding: 0.35rem 0.75rem;
+  font-size: 0.7rem;
+  padding: 0.35rem 0.7rem;
   border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid rgba(79, 209, 197, 0.35);
+  background: var(--surface-variant);
+  color: var(--accent-strong);
+  border: 1px solid var(--border);
+  font-weight: 600;
 }
 
 .legal {
-  padding: 3rem 0 4rem;
+  padding: 2.5rem 0 3.5rem;
   display: grid;
   gap: 1.5rem;
 }
 
 .legal-card {
-  background: var(--panel);
+  background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 1.75rem;
+  border-radius: 18px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-soft);
 }
 
 .legal-card h2 {
   margin: 0 0 0.75rem;
-  font-size: 1.3rem;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
 }
 
 .legal-card p {
   margin: 0;
   color: var(--muted);
   line-height: 1.7;
+  font-size: 0.95rem;
 }
 
 .site-footer {
   padding: 2rem 0 3rem;
-  border-top: 1px solid var(--border);
 }
 
 .footer-inner {
@@ -150,12 +187,13 @@ h1 {
   color: var(--text);
   text-decoration: none;
   border-bottom: 1px solid transparent;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
 }
 
 .footer-inner a:hover {
-  color: var(--accent);
+  color: var(--accent-strong);
   border-color: var(--accent);
+  transform: translateY(-1px);
 }
 
 .divider {
@@ -163,8 +201,27 @@ h1 {
 }
 
 @media (max-width: 720px) {
+  .hero-panel {
+    padding: 2rem;
+  }
+
   .card-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+}
+
+@keyframes breathe {
+  0% {
+    transform: scale(0.98);
+    opacity: 0.92;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.98);
+    opacity: 0.92;
   }
 }
