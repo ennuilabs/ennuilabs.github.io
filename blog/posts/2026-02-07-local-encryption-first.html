@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Local Encryption First | Ennuilabs Blog</title>
+    <meta name="description" content="Guardrails for using AES-GCM safely in end-to-end encrypted tools." />
+    <link rel="stylesheet" href="../../style.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container hero-panel">
+        <p class="eyebrow">Ennuilabs</p>
+        <h1>Local Encryption First: Making AES-GCM Safer in Everyday Tools</h1>
+        <p class="subhead">Feb 7, 2026 · Security</p>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="post-hero">
+        <h1>Why AES-GCM guardrails matter for privacy tools</h1>
+        <p class="subhead">
+          AES-GCM is a fast, modern authenticated encryption mode. It’s also
+          unforgiving: misuse can silently break confidentiality or integrity. For
+          privacy-focused utilities, the safest path is to design for local
+          encryption with strict nonce discipline.
+        </p>
+      </section>
+
+      <article class="post-body">
+        <p>
+          Authenticated encryption modes like AES-GCM require a unique nonce for
+          each encryption under the same key. The AEAD interface in RFC 5116 is
+          explicit: nonces must be distinct for each invocation, unless you are
+          using a very specific zero-length nonce approach. In practical product
+          design, that means treating nonce generation as a first-class system
+          and never reusing it across messages.
+        </p>
+
+        <div class="callout">
+          If your app encrypts locally on the device, keep the nonce generation
+          local too. Don’t derive nonces from unstable inputs (like timestamps)
+          without a robust uniqueness strategy.
+        </div>
+
+        <p>
+          NIST is currently revising SP 800-38D (the GCM recommendation). The
+          announced changes include removing support for authentication tags
+          shorter than 96 bits. That’s a signal that short tags are no longer
+          considered acceptable for modern usage. For product defaults, stick to
+          128-bit tags unless you have a strong, well-reviewed reason to do
+          otherwise.
+        </p>
+
+        <p>
+          In privacy tools, local encryption brings a second benefit: it reduces
+          your operational exposure. When encryption happens on device, servers
+          never see plaintext. But that only helps if your crypto usage is
+          disciplined. A minimal checklist we use internally:
+        </p>
+
+        <ul>
+          <li>Unique nonce per message and per key.</li>
+          <li>At least 96-bit tags, with 128-bit as a default.</li>
+          <li>Key rotation strategy for long-lived devices.</li>
+          <li>Explicit failure handling for authentication errors.</li>
+        </ul>
+
+        <p>
+          When these guardrails are in place, AES-GCM is a strong fit for
+          end-to-end encryption in lightweight tools. The work is less about the
+          algorithm and more about operational discipline.
+        </p>
+
+        <div class="post-footer">
+          <strong>References</strong>
+          <ul>
+            <li>
+              NIST: SP 800-38D revision announcement (tag length guidance)
+              —
+              <a href="https://www.nist.gov/news-events/news/2024/03/nist-revise-special-publication-800-38d-galoiscounter-mode-gcm-and-gmac">
+                NIST News, March 2024
+              </a>
+            </li>
+            <li>
+              RFC 5116: AEAD interface, nonce uniqueness requirement —
+              <a href="https://www.rfc-editor.org/rfc/rfc5116">RFC 5116</a>
+            </li>
+            <li>
+              NIST SP 800-38D (GCM and GMAC recommendation) —
+              <a href="https://www.nist.gov/publications/recommendation-block-cipher-modes-operation-galoiscounter-mode-gcm-and-gmac">
+                NIST Publication
+              </a>
+            </li>
+          </ul>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <a href="../../index.html">Home</a>
+        <span class="divider">•</span>
+        <a href="../index.html">Blog</a>
+        <span class="divider">•</span>
+        <a href="../../privacy.html">Privacy Policy</a>
+      </div>
+    </footer>
+  </body>
+</html>
