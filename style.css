@@ -39,6 +39,7 @@ body {
 }
 
 .hero-panel {
+  position: relative;
   background: linear-gradient(
       135deg,
       rgba(255, 255, 255, 0.9),
@@ -51,6 +52,50 @@ body {
   box-shadow: var(--shadow-soft);
   backdrop-filter: blur(18px);
   animation: breathe 1400ms ease-in-out infinite;
+  overflow: hidden;
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(
+    40% 40% at 20% 10%,
+    rgba(108, 231, 250, 0.25),
+    rgba(255, 255, 255, 0)
+  );
+  pointer-events: none;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    120% 120% at 30% 20%,
+    rgba(108, 231, 250, 0.6),
+    rgba(255, 255, 255, 0.9)
+  );
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+}
+
+.logo-mark {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 6px 12px rgba(15, 23, 42, 0.15));
 }
 
 .site-header {
@@ -67,7 +112,7 @@ body {
   font-size: 0.7rem;
   font-weight: 600;
   color: var(--muted);
-  margin: 0 0 0.75rem;
+  margin: 0;
 }
 
 h1 {
@@ -76,6 +121,8 @@ h1 {
   line-height: 1.2;
   font-weight: 600;
   letter-spacing: 0.2px;
+  position: relative;
+  z-index: 1;
 }
 
 .subhead {
@@ -83,6 +130,8 @@ h1 {
   color: var(--muted);
   max-width: 42rem;
   font-size: 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .products {
