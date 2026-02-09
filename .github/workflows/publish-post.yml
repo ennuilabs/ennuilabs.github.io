@@ -1,0 +1,43 @@
+name: Publish scheduled post
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch scheduled branch
+        run: |
+          if git show-ref --verify --quiet refs/remotes/origin/scheduled; then
+            git fetch origin scheduled:scheduled
+          else
+            echo "No scheduled branch found."
+            exit 0
+          fi
+
+      - name: Checkout scheduled drafts
+        run: git checkout scheduled -- scheduled_posts
+
+      - name: Publish next post
+        id: publish
+        run: python3 scripts/publish_next_post.py
+
+      - name: Commit and push
+        if: steps.publish.outputs.published == 'true'
+        run: |
+          git config user.name "ennuilabs-bot"
+          git config user.email "contact@ennuilabs.com"
+          git add blog/posts index.html blog/index.html
+          git commit -m "Publish blog post: ${{ steps.publish.outputs.title }}"
+          git push origin main
